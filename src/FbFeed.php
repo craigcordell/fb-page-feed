@@ -21,6 +21,7 @@ class FbFeed {
     private $fields = 'id,message,created_time,from,permalink_url,full_picture';
     private $access_token;
     private $module = 'posts';
+    private $offset;
 
     /**
      * FbFeed constructor.
@@ -154,6 +155,16 @@ class FbFeed {
     }
 
     /**
+     * @param $offset
+     * @return FbFeed
+     */
+    function setOffset($offset)  : FbFeed
+    {
+        $this->offset = $offset;
+        return $this;
+    }    
+
+    /**
      * @param $locale
      * @return FbFeed
      */
@@ -187,6 +198,10 @@ class FbFeed {
 
         if ($this->limit > -1) {
             $data['limit'] = $this->limit;
+        }
+
+        if ($this->offset) {
+            $data['offset'] = $this->offset;
         }
 
         if ($this->locale) {
